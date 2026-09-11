@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vikash Kumar - Digital CV & Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: rgba(23, 32, 54, 0.75);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1200px;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* 3D Card Wrapper */
+    .cv-card {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6),
+                  0 0 25px var(--accent-glow);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+    }
+
+    .cv-card:hover {
+      box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.8),
+                  0 0 35px var(--accent-glow);
+    }
+
+    /* Header Layout */
+    .header-section {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 35px;
+      transform: translateZ(35px);
+    }
+
+    .profile-img-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background-color: #1e293b;
+    }
+
+    .header-info h1 {
+      font-size: 2.4rem;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .header-info h3 {
+      font-size: 1.15rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .contact-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-item a {
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item a:hover {
+      color: var(--accent);
+    }
+
+    /* Sections Formatting */
+    .section {
+      margin-bottom: 30px;
+      transform: translateZ(25px);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+      padding-bottom: 6px;
+      display: inline-block;
+    }
+
+    .summary-text {
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    /* Experience & Education Timelines */
+    .timeline-item {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 18px 22px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      margin-bottom: 15px;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transform: translateZ(15px);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .timeline-header h4 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    .timeline-header .date {
+      font-size: 0.85rem;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .timeline-company {
+      font-size: 0.92rem;
+      color: #a7f3d0;
+      margin-bottom: 10px;
+    }
+
+    .timeline-bullets {
+      list-style-type: none;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+    }
+
+    .timeline-bullets li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .timeline-bullets li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-tag {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      transform: translateZ(10px);
+    }
+
+    .skill-tag:hover {
+      background: var(--accent);
+      color: #0f172a;
+      transform: translateZ(25px) scale(1.05);
+      box-shadow: 0 5px 15px var(--accent-glow);
+    }
+
+    /* Grid Layout for Education & Achievements */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-card {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .info-card h4 {
+      color: var(--text-main);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .info-card p {
+      color: var(--text-sub);
+      font-size: 0.88rem;
+    }
+
+    /* CTA Buttons */
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      transform: translateZ(30px);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(56, 189, 248, 0.1);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .header-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .contact-bar {
+        justify-content: center;
+      }
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+      .cv-card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cv-card" id="card">
+    
+    <!-- Header -->
+    <div class="header-section">
+      <div class="profile-img-container">
+        <!-- Photo ka path yahan badlein -->
+        <img src="profile.jpg" alt="Vikash Kumar" class="profile-img" />
+      </div>
+      <div class="header-info">
+        <h1>Vikash Kumar</h1>
+        <h3>Operations Lead & Planning Professional</h3>
+        <div class="contact-bar">
+          <div class="contact-item">📍 Gurgaon, Haryana</div>
+          <div class="contact-item">📞 <a href="tel:9896873022">9896873022</a></div>
+          <div class="contact-item">✉️ <a href="mailto:mrbrahmavanshi@gmail.com">mrbrahmavanshi@gmail.com</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Detail-oriented and dedicated Operations Professional with a strong background in inventory management, team leadership, and administrative planning. Proven track record of optimizing daily operations and reducing waste. Skilled in leveraging technical proficiency to improve organizational efficiency, complemented by creative pursuits in literature.
+      </p>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <h2 class="section-title">Professional Experience</h2>
+      
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h4>Team Leader</h4>
+          <span class="date">Feb 2025 – Mar 2026</span>
+        </div>
+        <div class="timeline-company">BISTRO (Third Party Payroll)</div>
+        <ul class="timeline-bullets">
+          <li>Led team operations in a cloud kitchen environment, ensuring smooth daily workflows and operational continuity.</li>
+          <li>Managed shift scheduling, maintained strict food quality standards, and oversaw comprehensive inventory management.</li>
+          <li>Focused on reducing operational wastage to improve cost-efficiency.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h4>Data Entry Operator & Planning Member</h4>
+          <span class="date">Jan 2018 – Mar 2021</span>
+        </div>
+        <div class="timeline-company">Flipkart (Third Party Payroll)</div>
+        <ul class="timeline-bullets">
+          <li>Supported multiple departments through accurate data entry and administrative operations.</li>
+          <li>Played a key role as a Planning Member, contributing to strategic inventory management and logistical organization.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+      <h2 class="section-title">Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-tag">Inventory Management</div>
+        <div class="skill-tag">Team Leadership</div>
+        <div class="skill-tag">Shift Management</div>
+        <div class="skill-tag">Wastage Reduction</div>
+        <div class="skill-tag">MS Excel & Word</div>
+        <div class="skill-tag">Administrative Planning</div>
+        <div class="skill-tag">Data Operations</div>
+      </div>
+    </div>
+
+    <!-- Education & Achievements Split -->
+    <div class="two-column-grid section">
+      <div>
+        <h2 class="section-title">Achievements</h2>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <h4>🏆 Reward & Recognition (RNR)</h4>
+          <p>Awarded twice at Flipkart in 2019 for performance excellence.</p>
+        </div>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <h4>📖 Published Author</h4>
+          <p>Author of the book <i>"Andekha Sangharsh"</i>, highlighted on Google.</p>
+        </div>
+        <div class="info-card">
+          <h4>🏒 Athletics</h4>
+          <p>District Level Hockey Championship competitor (2014).</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="section-title">Education</h2>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <h4>Bachelor of Science (B.Sc.)</h4>
+          <p>Bundelkhand University, Jhansi</p>
+        </div>
+        <div class="info-card" style="margin-bottom: 10px;">
+          <h4>Higher Secondary (12th)</h4>
+          <p>Allahabad Board</p>
+        </div>
+        <div class="info-card">
+          <h4>Secondary (10th)</h4>
+          <p>Allahabad Board</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions / Connect -->
+    <div class="actions">
+      <a href="mailto:mrbrahmavanshi@gmail.com" class="btn btn-primary">✉️ Send Email</a>
+      <a href="tel:9896873022" class="btn btn-outline">📞 Call Direct</a>
+    </div>
+
+  </div>
+
+  <!-- Interactive 3D Card Tilt Script -->
+  <script>
+    const card = document.getElementById('card');
+    const body = document.body;
+
+    body.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    body.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      card.style.transition = 'transform 0.5s ease';
+    });
+
+    body.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
+  </script>
+</body>
+</html>
