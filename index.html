@@ -38,7 +38,7 @@
             position: relative;
         }
 
-        /* 3D WebGL Background Canvas */
+        /* 3D WebGL Canvas Background */
         #webgl-bg {
             position: fixed;
             top: 0;
@@ -49,7 +49,7 @@
             pointer-events: none;
         }
 
-        /* Custom Interactive Glowing Mouse Cursor */
+        /* Glowing Custom Cursor */
         .custom-cursor {
             width: 20px;
             height: 20px;
@@ -63,7 +63,7 @@
             mix-blend-mode: screen;
         }
 
-        /* Welcome Overlay Screen */
+        /* Welcome Overlay Modal */
         #welcome-overlay {
             position: fixed;
             top: 0;
@@ -83,11 +83,10 @@
             text-align: center;
             padding: 40px;
             border: 1px solid var(--card-border);
-            background: rgba(10, 14, 23, 0.8);
+            background: rgba(10, 14, 23, 0.85);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
-            transform: scale(1);
             animation: pulseGlow 3s infinite ease-in-out;
         }
 
@@ -115,7 +114,7 @@
             box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
         }
 
-        /* Navigation Header */
+        /* Header Navigation */
         header {
             position: fixed;
             top: 20px;
@@ -160,21 +159,21 @@
             color: var(--accent-blue);
         }
 
-        /* Hero Section (Center Aligned, No Left Card) */
+        /* Hero Section Layout */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 140px 20px 60px;
-            max-width: 1200px;
+            max-width: 1250px;
             margin: 0 auto;
         }
 
         .hero-grid-2col {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
             width: 100%;
         }
@@ -250,34 +249,40 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* 3D Interactive Photo Card (Right) */
-        .photo-card-3d {
+        /* Standalone Cutout Photo Container (NO CARD) */
+        .photo-standalone-container {
             position: relative;
-            transform-style: preserve-3d;
-            perspective: 1000px;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
-        .photo-wrapper {
+        .cutout-glow-back {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, rgba(112, 0, 255, 0.2) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(35px);
+            z-index: 1;
+        }
+
+        .raw-cutout-img {
             position: relative;
-            border-radius: 24px;
-            padding: 10px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(112, 0, 255, 0.2));
-            border: 1px solid var(--card-border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            transition: transform 0.2s ease-out;
-        }
-
-        .photo-wrapper img {
+            z-index: 2;
             width: 100%;
-            max-width: 360px;
-            border-radius: 18px;
-            display: block;
-            object-fit: cover;
+            max-width: 380px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+            transition: transform 0.3s ease-out;
         }
 
-        /* Close-up Showcase Section */
+        .raw-cutout-img:hover {
+            transform: scale(1.03);
+        }
+
+        /* 4K Close-up Circle Showcase Section */
         .section {
             padding: 100px 20px;
             max-width: 1200px;
@@ -295,47 +300,70 @@
             margin-bottom: 10px;
         }
 
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .showcase-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .showcase-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-blue);
-        }
-
-        .showcase-img-box {
-            height: 280px;
-            overflow: hidden;
+        /* Center 3D Circle Showcase Container */
+        .circle-4k-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0 80px;
             position: relative;
         }
 
-        .showcase-img-box img {
+        .glowing-circle-ring {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple), var(--accent-cyan));
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4), inset 0 0 30px rgba(112, 0, 255, 0.5);
+            animation: rotateGlowRing 8s linear infinite;
+        }
+
+        @keyframes rotateGlowRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .closeup-crop-wrapper {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+            border: 4px solid var(--bg-dark);
+            transform: rotate(0deg); /* Counteract parent rotation */
+            animation: antiRotate 8s linear infinite;
+        }
+
+        @keyframes antiRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* 4K Face Zoom Crop styling */
+        .closeup-4k-img {
+            width: 260%;
+            height: 260%;
             object-fit: cover;
-            object-position: top center;
-            transition: transform 0.5s ease;
+            /* Precise face zoom center adjustment */
+            object-position: 50% 12%; 
+            filter: contrast(110%) brightness(105%) saturate(105%);
         }
 
-        .showcase-card:hover .showcase-img-box img {
-            transform: scale(1.1);
-        }
-
-        .showcase-info {
-            padding: 20px;
-            text-align: center;
+        .circle-badge {
+            position: absolute;
+            bottom: -15px;
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-cyan);
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            letter-spacing: 1px;
         }
 
         /* Extended Detailed Experience */
@@ -431,7 +459,7 @@
             text-align: center;
         }
 
-        /* Responsive */
+        /* Responsive Breakpoints */
         @media (max-width: 900px) {
             .hero-grid-2col {
                 grid-template-columns: 1fr;
@@ -443,106 +471,91 @@
             .hero h1 {
                 font-size: 2.8rem;
             }
+            .photo-standalone-container {
+                margin-top: 20px;
+            }
+            .glowing-circle-ring {
+                width: 270px;
+                height: 270px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 3D WebGL Background Canvas -->
+    <!-- 3D WebGL Canvas Background -->
     <canvas id="webgl-bg"></canvas>
 
-    <!-- Glowing Follow Cursor -->
+    <!-- Interactive Cursor -->
     <div class="custom-cursor" id="cursor"></div>
 
-    <!-- Interactive Welcome & Audio Greeting Modal -->
+    <!-- Welcome Modal Screen -->
     <div id="welcome-overlay">
         <div class="welcome-content">
             <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Welcome to My Portfolio</h1>
-            <p style="color: var(--text-muted);">Portfolio of Vikash Kumar</p>
+            <p style="color: var(--text-muted);">Experience the 3D Interactive World of Vikash Kumar</p>
             <button class="btn-enter" onclick="enterPortfolio()">
-                <i class="fa-solid fa-play" style="margin-right: 8px;"></i> CLICK HERE
+                <i class="fa-solid fa-play" style="margin-right: 8px;"></i> Enter Experience
             </button>
         </div>
     </div>
 
     <!-- Navigation Header -->
     <header>
-        <div class="logo">VIKASH KUMAR</div>
+        <div class="logo">VIKASH.DEV</div>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
-                <li><a href="#showcase">Showcase</a></li>
+                <li><a href="#closeup-section">4K Showcase</a></li>
                 <li><a href="#experience">Experience</a></li>
             </ul>
         </nav>
         <a href="mailto:mrbrahmavanshi@gmail.com" class="btn-main" style="padding: 8px 22px; font-size: 0.85rem;">Contact</a>
     </header>
 
-    <!-- Hero Section (Centered Layout, Left Card Removed) -->
+    <!-- Main Hero Section -->
     <section class="hero" id="about">
         <div class="hero-grid-2col">
             
             <div class="hero-text">
                 <div class="hero-tag">
-                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: var(--accent-cyan);"></i> Backend Operations & AIS Telematics Specialist
+                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: var(--accent-cyan);"></i> Backend Operations & Telematics Specialist
                 </div>
                 <h1>Hi, I'm <span class="highlight-text">Vikash Kumar</span></h1>
-                <p>Multi-disciplined Operations Leader with over 7 years of specialized expertise in Telematics hardware verification, government portal certifications (AIS Compliance), eSIM lifecycle management, and full-stack internal tool development.</p>
+                <p>Operations Specialist with 7+ years of expertise managing government transport portal certifications (AIS Compliance), eSIM hardware activations, server/port auditing, and custom automation web tools.</p>
                 <div class="hero-btns">
                     <a href="#experience" class="btn-main">Explore Career Journey</a>
                     <a href="javascript:window.print()" class="btn-outline"><i class="fa-solid fa-download"></i> Print Full CV</a>
                 </div>
             </div>
 
-            <!-- 3D Tilt Photo Frame (Right Side) -->
-            <div class="photo-card-3d">
-                <div class="photo-wrapper" id="tilt-card">
-                    <img src="profile.png" alt="Vikash Kumar">
-                </div>
+            <!-- Right Side Standalone PNG Cutout Photo (NO CARD / NO BORDER) -->
+            <div class="photo-standalone-container">
+                <div class="cutout-glow-back"></div>
+                <img src="profile.png" alt="Vikash Kumar Cutout" class="raw-cutout-img">
             </div>
 
         </div>
     </section>
 
-    <!-- Profile Close-up & Avatar Showcase Section -->
-    <section class="section" id="showcase">
+    <!-- 4K Close-up Circle Focus Showcase Section -->
+    <section class="section" id="closeup-section">
         <div class="section-title">
-            <h2>Profile Showcase</h2>
-            <p style="color: var(--text-muted);">Professional Profiles & Close-up Persona Highlights</p>
+            <h2>4K Portrait Close-up</h2>
+            <p style="color: var(--text-muted);">Ultra HD Face Detail Centered in Interactive 3D Halo Circle</p>
         </div>
 
-        <div class="showcase-grid">
-            <div class="showcase-card">
-                <div class="showcase-img-box">
-                    <img src="profile-cutout.png.png" alt="Operations Leader">
-                </div>
-                <div class="showcase-info">
-                    <h3 style="color: var(--accent-blue);">Operations Executive</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">AIS Telematics & Backend Governance Specialist</p>
+        <div class="circle-4k-showcase">
+            <div class="glowing-circle-ring">
+                <div class="closeup-crop-wrapper">
+                    <img src="profile-cutout.png.png" alt="Vikash Kumar 4K Closeup" class="closeup-4k-img">
                 </div>
             </div>
-
-            <div class="showcase-card">
-                <div class="showcase-img-box">
-                    <img src="profile.png" alt="Full-Stack Developer" style="object-position: center top; filter: contrast(110%);">
-                </div>
-                <div class="showcase-info">
-                    <h3 style="color: var(--accent-cyan);">Internal Web Developer</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Automation Tools & Custom Workflow Specialist</p>
-                </div>
-            </div>
-
-            <div class="showcase-card">
-                <div class="showcase-info" style="padding: 40px 20px;">
-                    <div style="font-size: 3rem; color: var(--accent-purple); margin-bottom: 10px;"><i class="fa-solid fa-book-open"></i></div>
-                    <h3 style="color: var(--accent-purple);">Published Author</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Author of "Andekha Sangharsh" (Mr. Brahmavanshi)</p>
-                </div>
-            </div>
+            <div class="circle-badge">4K ULTRA HD CLOSEUP</div>
         </div>
     </section>
 
-    <!-- Expanded Work Experience Section -->
+    <!-- Work Experience Section -->
     <section class="section" id="experience">
         <div class="section-title">
             <h2>Detailed Work Experience</h2>
@@ -617,7 +630,7 @@
         <p style="color: var(--text-muted); font-size: 0.95rem;">&copy; 2026 Vikash Kumar. All rights reserved.</p>
     </footer>
 
-    <!-- Interactive Scripts & 3D WebGL Animation -->
+    <!-- Interactive Scripts & Three.js Canvas -->
     <script>
         // Custom Mouse Cursor Follower
         const cursor = document.getElementById('cursor');
@@ -626,25 +639,15 @@
             cursor.style.top = e.clientY - 10 + 'px';
         });
 
-        // Interactive 3D Tilt Effect on Photo Card
-        const tiltCard = document.getElementById('tilt-card');
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.clientX) / 25;
-            let yAxis = (window.innerHeight / 2 - e.clientY) / 25;
-            if(tiltCard) {
-                tiltCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            }
-        });
-
         // Welcome Screen & Speech Synthesis Greeting
         function enterPortfolio() {
             const overlay = document.getElementById('welcome-overlay');
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.display = 'none', 800);
 
-            // AI Voice Welcome Greeting
+            // Audio Speech Greeting
             if ('speechSynthesis' in window) {
-                const text = "Welcome to Vikash Kumar's official  portfolio!";
+                const text = "Welcome to Vikash Kumar's official portfolio!";
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.rate = 1.0;
                 utterance.pitch = 1.0;
@@ -652,7 +655,7 @@
             }
         }
 
-        // Three.js 3D Floating Geometry Background
+        // Three.js 3D Background Geometry Animation
         const canvas = document.getElementById('webgl-bg');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -661,26 +664,24 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
 
-        // Create 3D Mesh Geometries
+        // Geometries
         const geometry = new THREE.IcosahedronGeometry(2, 1);
         const material = new THREE.MeshBasicMaterial({ 
             color: 0x00f0ff, 
             wireframe: true, 
             transparent: true, 
-            opacity: 0.25 
+            opacity: 0.2 
         });
         const shape = new THREE.Mesh(geometry, material);
         scene.add(shape);
 
-        // Floating Torus Ring
-        const torusGeo = new THREE.TorusGeometry(4, 0.2, 16, 100);
-        const torusMat = new THREE.MeshBasicMaterial({ color: 0x7000ff, wireframe: true, transparent: true, opacity: 0.2 });
+        const torusGeo = new THREE.TorusGeometry(4.5, 0.15, 16, 100);
+        const torusMat = new THREE.MeshBasicMaterial({ color: 0x7000ff, wireframe: true, transparent: true, opacity: 0.15 });
         const torus = new THREE.Mesh(torusGeo, torusMat);
         scene.add(torus);
 
         camera.position.z = 7;
 
-        // Mouse Parallax Effect on 3D Canvas
         let mouseX = 0, mouseY = 0;
         document.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
@@ -691,7 +692,7 @@
             requestAnimationFrame(animate3D);
 
             shape.rotation.x += 0.003;
-            shape.rotation.y += 0.005;
+            shape.rotation.y += 0.004;
 
             torus.rotation.x -= 0.002;
             torus.rotation.y -= 0.003;
