@@ -340,24 +340,6 @@
             position: relative;
         }
 
-        /* 4. 4K ULTRA HD RESOLUTION STYLING */
-        .photo-4k-ultra {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top center;
-            transform: scale(1.15);
-            /* HD Clarity & Sharpness Optimization */
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            filter: contrast(106%) brightness(103%) saturate(104%);
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .classic-glass-frame:hover .photo-4k-ultra {
-            transform: scale(1.22);
-        }
-
         .classic-badge {
             margin-top: 25px;
             background: rgba(10, 14, 23, 0.8);
