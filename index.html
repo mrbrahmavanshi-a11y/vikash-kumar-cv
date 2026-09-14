@@ -14,11 +14,12 @@
     <style>
         :root {
             --bg-dark: #05070c;
-            --card-bg: rgba(15, 22, 36, 0.65);
+            --card-bg: rgba(15, 22, 36, 0.75);
             --card-border: rgba(0, 240, 255, 0.15);
             --accent-blue: #00f0ff;
             --accent-purple: #7000ff;
             --accent-cyan: #00ffaa;
+            --accent-gold: #ffb703;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
         }
@@ -47,20 +48,6 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-        }
-
-        /* Glowing Custom Cursor */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 240, 255, 0.6);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--accent-purple);
-            transition: transform 0.1s ease-out;
-            mix-blend-mode: screen;
         }
 
         /* Welcome Overlay Modal */
@@ -159,23 +146,16 @@
             color: var(--accent-blue);
         }
 
-        /* Hero Section Layout */
+        /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 140px 20px 60px;
-            max-width: 1250px;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        .hero-grid-2col {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
-            align-items: center;
-            width: 100%;
+            text-align: center;
         }
 
         .hero-tag {
@@ -185,7 +165,7 @@
             background: rgba(0, 240, 255, 0.1);
             border: 1px solid rgba(0, 240, 255, 0.3);
             color: var(--accent-blue);
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
@@ -193,7 +173,7 @@
         }
 
         .hero h1 {
-            font-size: 3.8rem;
+            font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 20px;
@@ -207,14 +187,18 @@
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.7;
             margin-bottom: 35px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-btns {
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
 
         .btn-main {
@@ -249,42 +233,9 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* Standalone Cutout Photo Container */
-        .photo-standalone-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cutout-glow-back {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, rgba(112, 0, 255, 0.15) 50%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(35px);
-            z-index: 1;
-        }
-
-        .raw-cutout-img {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
-            transition: transform 0.3s ease-out;
-        }
-
-        .raw-cutout-img:hover {
-            transform: scale(1.03);
-        }
-
         /* General Section Layout */
         .section {
-            padding: 90px 20px;
+            padding: 80px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -300,138 +251,122 @@
             margin-bottom: 10px;
         }
 
-        /* --- 2. CLASSIC ELEGANT CIRCLE EFFECT FOR 4K PHOTO --- */
-        .classic-circle-showcase {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 30px 0 60px;
-            position: relative;
+        /* 3D Cubes Grid */
+        .cubes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
         }
 
-        .classic-glass-frame {
-            position: relative;
-            width: 330px;
-            height: 330px;
-            border-radius: 50%;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 240, 255, 0.25);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
-                        0 0 30px rgba(0, 240, 255, 0.15),
-                        inset 0 0 20px rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
+        .cube-card-wrapper {
+            perspective: 800px;
+            height: 200px;
+            cursor: pointer;
         }
 
-        .classic-glass-frame:hover {
-            border-color: rgba(0, 240, 255, 0.6);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8),
-                        0 0 45px rgba(0, 240, 255, 0.3);
-        }
-
-        .classic-crop-container {
+        .mini-cube {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #060913;
-            position: relative;
-        }
-
-        .classic-badge {
-            margin-top: 25px;
-            background: rgba(10, 14, 23, 0.8);
-            border: 1px solid var(--card-border);
-            color: var(--accent-blue);
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        /* --- 3. 3D INTERACTIVE SKILL CUBE DESIGN --- */
-        .skills-3d-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 380px;
-            perspective: 1000px;
-            margin: 40px 0;
-        }
-
-        .cube-viewport {
-            width: 220px;
-            height: 220px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-            cursor: grab;
-        }
-
-        .cube-viewport:active {
-            cursor: grabbing;
-        }
-
-        .cube-face {
-            position: absolute;
-            width: 220px;
-            height: 220px;
-            background: rgba(15, 22, 36, 0.85);
-            border: 2px solid var(--accent-blue);
-            backdrop-filter: blur(10px);
+            transition: transform 0.4s ease-out, box-shadow 0.3s ease;
+            background: rgba(15, 22, 36, 0.8);
+            border: 1px solid var(--card-border);
             border-radius: 20px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .cube-card-wrapper:hover .mini-cube {
+            transform: rotateX(15deg) rotateY(-15deg) scale(1.05);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        .mini-cube i {
+            font-size: 2.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .cube-card-wrapper:hover .mini-cube i {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .mini-cube h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .mini-cube span {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Modal Popup Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 10001;
+            display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 0 25px rgba(0, 240, 255, 0.2), 0 0 20px rgba(0,0,0,0.6);
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            user-select: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        .cube-face i {
-            font-size: 3rem;
-            color: var(--accent-cyan);
-            margin-bottom: 12px;
-            text-shadow: 0 0 15px var(--accent-cyan);
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .cube-face h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 5px;
+        .modal-card {
+            background: rgba(15, 22, 36, 0.95);
+            border: 1px solid var(--accent-blue);
+            padding: 35px;
+            border-radius: 24px;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
         }
 
-        .cube-face p {
-            font-size: 0.82rem;
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 1.5rem;
             color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease;
         }
 
-        /* Cube Positions */
-        .face-front  { transform: rotateY(  0deg) translateZ(110px); }
-        .face-back   { transform: rotateY(180deg) translateZ(110px); }
-        .face-right  { transform: rotateY( 90deg) translateZ(110px); }
-        .face-left   { transform: rotateY(-90deg) translateZ(110px); }
-        .face-top    { transform: rotateX( 90deg) translateZ(110px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(110px); }
-
-        .cube-instruction {
-            text-align: center;
+        .modal-close:hover {
             color: var(--accent-cyan);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 10px;
         }
 
-        /* Detailed Experience Timeline */
+        /* Work Experience Timeline */
         .timeline {
             position: relative;
             padding-left: 35px;
@@ -443,9 +378,9 @@
             margin-bottom: 40px;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
             transition: all 0.3s ease;
         }
 
@@ -453,7 +388,7 @@
             content: '';
             position: absolute;
             left: -44px;
-            top: 35px;
+            top: 38px;
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -463,6 +398,7 @@
 
         .timeline-item:hover {
             border-color: var(--accent-cyan);
+            transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15);
         }
 
@@ -471,7 +407,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .company-name {
@@ -517,42 +453,156 @@
             color: var(--accent-cyan);
         }
 
+        /* Achievements & Amazon Book Link */
+        .achieve-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .achieve-card {
+            background: rgba(15, 22, 36, 0.8);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achieve-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
+        }
+
+        .achieve-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .book-card {
+            border-color: rgba(255, 183, 3, 0.4);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .book-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 35px rgba(255, 183, 3, 0.25);
+        }
+
+        .amazon-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            background: rgba(255, 183, 3, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Personal Details Section */
+        .personal-accordion {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-toggle-personal {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-main);
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-toggle-personal:hover {
+            background: rgba(0, 240, 255, 0.15);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+        }
+
+        .personal-details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease;
+            opacity: 0;
+            margin-top: 20px;
+        }
+
+        .personal-details-content.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .details-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+
+        .details-label {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .details-val {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* Thank You Section */
+        .thankyou-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(112, 0, 255, 0.1) 0%, transparent 70%);
+            border-radius: 30px;
+            border: 1px solid var(--card-border);
+            margin: 60px auto 40px;
+            max-width: 800px;
+        }
+
+        .thankyou-section h2 {
+            font-size: 2.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
         footer {
             background: #030407;
             border-top: 1px solid var(--card-border);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .hero-grid-2col {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-btns {
-                justify-content: center;
-            }
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            .photo-standalone-container {
-                margin-top: 20px;
-            }
-            .classic-glass-frame {
-                width: 280px;
-                height: 280px;
-            }
-            .cube-viewport, .cube-face {
-                width: 180px;
-                height: 180px;
-            }
-            .face-front  { transform: rotateY(  0deg) translateZ(90px); }
-            .face-back   { transform: rotateY(180deg) translateZ(90px); }
-            .face-right  { transform: rotateY( 90deg) translateZ(90px); }
-            .face-left   { transform: rotateY(-90deg) translateZ(90px); }
-            .face-top    { transform: rotateX( 90deg) translateZ(90px); }
-            .face-bottom { transform: rotateX(-90deg) translateZ(90px); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero-btns { flex-direction: column; }
+            .details-row { flex-direction: column; gap: 4px; }
         }
     </style>
 </head>
@@ -561,29 +611,26 @@
     <!-- 3D WebGL Background -->
     <canvas id="webgl-bg"></canvas>
 
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="cursor"></div>
-
     <!-- Welcome Modal Screen -->
     <div id="welcome-overlay">
         <div class="welcome-content">
             <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Welcome to My Portfolio</h1>
-            <p style="color: var(--text-muted);"> the World of Vikash Kumar</p>
+            <p style="color: var(--text-muted);">Experience the Interactive Portfolio of Vikash Kumar</p>
             <button class="btn-enter" onclick="enterPortfolio()">
-                <i class="fa-solid fa-play" style="margin-right: 8px;"></i> Enter here
+                <i class="fa-solid fa-play" style="margin-right: 8px;"></i> Enter Experience
             </button>
         </div>
     </div>
 
     <!-- Navigation Header -->
     <header>
-        <div class="logo">VIKASH.KUMAR(MRATYUNJAY BRAHMAVANSHI)</div>
+        <div class="logo">VIKASH.DEV</div>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
-                <li><a href="#classic-portrait">.</a></li>
-                <li><a href="#skills"> Skills</a></li>
+                <li><a href="#skills">3D Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#achievements">Achievements</a></li>
             </ul>
         </nav>
         <a href="mailto:mrbrahmavanshi@gmail.com" class="btn-main" style="padding: 8px 22px; font-size: 0.85rem;">Contact</a>
@@ -591,117 +638,119 @@
 
     <!-- Main Hero Section -->
     <section class="hero" id="about">
-        <div class="hero-grid-2col">
-            
-            <div class="hero-text">
-                <div class="hero-tag">
-                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: var(--accent-cyan);"></i> Backend Operations & Telematics Specialist
-                </div>
-                <h1>Hi, I'm <span class="highlight-text">Vikash Kumar</span></h1>
-                <p>Operations Specialist with 7+ years of expertise managing government transport portal certifications (AIS Compliance), eSIM hardware activations, server/port auditing, and custom automation tools.</p>
-                <div class="hero-btns">
-                    <a href="#experience" class="btn-main">Explore Career Journey</a>
-                    <a href="Vikash_Kumar_CV.pdf.pdf" target="_blank" class="btn-outline">
-    <i class="fa-solid fa-file-pdf"></i> View & Print CV
-</a>
-                </div>
+        <div class="hero-text">
+            <div class="hero-tag">
+                <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: var(--accent-cyan);"></i> Backend Operations & Telematics Specialist
             </div>
-
-            <!-- 1. Right Side Image (using profile.png) -->
-            <div class="photo-standalone-container">
-                <div class="cutout-glow-back"></div>
-                <img src="profile.png" alt="Vikash Kumar Cutout" class="raw-cutout-img">
+            <h1>Hi, I'm <span class="highlight-text">Vikash Kumar</span></h1>
+            <p>Operations Specialist with 7+ years of expertise managing government transport portal certifications (AIS Compliance), eSIM hardware activations, server/port auditing, and custom automation web tools.</p>
+            <div class="hero-btns">
+                <a href="#experience" class="btn-main">Explore Career Journey</a>
+                <a href="Vikash_Kumar_CV.pdf" target="_blank" class="btn-outline"><i class="fa-solid fa-file-pdf"></i> View & Print CV</a>
             </div>
-
         </div>
     </section>
 
-    <!-- 2 & 4. Classic 4K Ultra HD Portrait Showcase Section -->
-    <section class="section" id="classic-portrait">
-        <div class="section-title">
-            <h2> </h2>
-            <p style="color: var(--text-muted);"> </p>
-        </div>
-
-        <div class="classic-circle-showcase">
-            <div class="classic-glass-frame">
-                <div class="classic-crop-container">
-                    <!-- Updated Image Source profile png 1.png & 4K HD Sharpness -->
-                    <img src="profile png 1.png" alt="Vikash Kumar 4K Portrait" class="photo-4k-ultra">
-                </div>
-            </div>
-            <div class="classic-badge"><i class="fa-solid fa-gem" style="margin-right: 6px;"></i>  </div>
-        </div>
-    </section>
-
-    <!-- 3. Interactive 3D Skill Cube Section -->
+    <!-- Core Expertise Section -->
     <section class="section" id="skills">
         <div class="section-title">
             <h2>Core Expertise</h2>
-            <p style="color: var(--text-muted);">Move your cursor over the 3D Cube to interact and explore skills</p>
+            <p style="color: var(--text-muted);">Hover over the 3D Cubes & Click to Open Detailed Specifications</p>
         </div>
 
-        <div class="skills-3d-wrapper" id="cubeContainer">
-            <div class="cube-viewport" id="skillCube">
-                <div class="cube-face face-front">
+        <div class="cubes-grid">
+            
+            <div class="cube-card-wrapper" onclick="openModal('modal1')">
+                <div class="mini-cube">
                     <i class="fa-solid fa-microchip"></i>
-                    <h3>AIS Telematics</h3>
-                    <p>eSIM Activation & Transport Compliance</p>
-                </div>
-                <div class="cube-face face-back">
-                    <i class="fa-solid fa-server"></i>
-                    <h3>Server Auditing</h3>
-                    <p>IP Connections & Port Monitoring</p>
-                </div>
-                <div class="cube-face face-right">
-                    <i class="fa-solid fa-code"></i>
-                    <h3>Web Automation</h3>
-                    <p>Custom HTML/JS Tools & Scripts</p>
-                </div>
-                <div class="cube-face face-left">
-                    <i class="fa-solid fa-boxes-stacked"></i>
-                    <h3>WMS Inventory</h3>
-                    <p>Fleet Logistics & Stock Planning</p>
-                </div>
-                <div class="cube-face face-top">
-                    <i class="fa-solid fa-users-gear"></i>
-                    <h3>Team Leadership</h3>
-                    <p>Shift Ops & Lead Operations</p>
-                </div>
-                <div class="cube-face face-bottom">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <h3>Process Audit</h3>
-                    <p>Efficiency Tracking & Workflows</p>
+                    <h3>AIS Certification</h3>
+                    <span>Click for Details &rarr;</span>
                 </div>
             </div>
+
+            <div class="cube-card-wrapper" onclick="openModal('modal2')">
+                <div class="mini-cube">
+                    <i class="fa-solid fa-sim-card"></i>
+                    <h3>eSIM Verification</h3>
+                    <span>Click for Details &rarr;</span>
+                </div>
+            </div>
+
+            <div class="cube-card-wrapper" onclick="openModal('modal3')">
+                <div class="mini-cube">
+                    <i class="fa-solid fa-server"></i>
+                    <h3>Server & Port Audit</h3>
+                    <span>Click for Details &rarr;</span>
+                </div>
+            </div>
+
+            <div class="cube-card-wrapper" onclick="openModal('modal4')">
+                <div class="mini-cube">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Web Automation</h3>
+                    <span>Click for Details &rarr;</span>
+                </div>
+            </div>
+
         </div>
-        <p class="cube-instruction"><i class="fa-solid fa-arrows-spin"></i>  </p>
     </section>
 
-    <!-- Detailed Experience Section -->
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal1" onclick="closeModal('modal1')">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal('modal1')">&times;</span>
+            <h2 style="color: var(--accent-blue); margin-bottom: 12px;"><i class="fa-solid fa-microchip"></i> AIS Certification Processing</h2>
+            <p style="color: var(--text-muted); line-height: 1.6;">Manage end-to-end AIS (Automotive Industry Standards) compliance certifications via official government transport portals. Ensure 100% adherence to vehicle tracking regulations and zero document discrepancies.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal2" onclick="closeModal('modal2')">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal('modal2')">&times;</span>
+            <h2 style="color: var(--accent-cyan); margin-bottom: 12px;"><i class="fa-solid fa-sim-card"></i> eSIM & GPS Hardware Verification</h2>
+            <p style="color: var(--text-muted); line-height: 1.6;">Perform technical verification, auditing, and lifecycle activation of embedded eSIM modules on telematics GPS hardware to guarantee continuous cellular connectivity and live telemetry data transmission.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal3" onclick="closeModal('modal3')">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal('modal3')">&times;</span>
+            <h2 style="color: var(--accent-purple); margin-bottom: 12px;"><i class="fa-solid fa-server"></i> Server Parameters & Port Audit</h2>
+            <p style="color: var(--text-muted); line-height: 1.6;">Maintain real-time oversight of server connections, IP parameters, and communication network ports to proactively troubleshoot sync glitches and maintain 99.9% operational uptime.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal4" onclick="closeModal('modal4')">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal('modal4')">&times;</span>
+            <h2 style="color: var(--accent-gold); margin-bottom: 12px;"><i class="fa-solid fa-code"></i> Custom Web Tools & Automation</h2>
+            <p style="color: var(--text-muted); line-height: 1.6;">Design and develop lightweight internal web utility portals, spreadsheet automation scripts, and Google Sheets tools to streamline daily high-volume tasks and save bandwidth.</p>
+        </div>
+    </div>
+
+    <!-- Work Experience -->
     <section class="section" id="experience">
         <div class="section-title">
-            <h2>Detailed Work Experience</h2>
-            <p style="color: var(--text-muted);">In-depth operational achievements and technical leadership</p>
+            <h2>Work Experience</h2>
+            <p style="color: var(--text-muted);">Detailed track record of operational leadership</p>
         </div>
 
         <div class="timeline">
 
-            <!-- WheelsEye -->
             <div class="timeline-item">
                 <div class="company-header">
                     <div class="company-name">WheelsEye Logistics</div>
                     <span class="date-badge">SEPT 2026 – PRESENT | Gurugram</span>
                 </div>
-                <div class="role-title">Backend Executive (AIS Certificate & eSIM Management)</div>
+                <div class="role-title">Backend Executive (AIS Certificate Team)</div>
                 <ul class="exp-details">
-                    <li>Spearhead government transport portal integration for AIS compliance certification across thousands of commercial fleet devices.</li>
+                    <li>Spearhead government transport portal integration for AIS compliance certification across commercial fleet devices.</li>
                     <li>Execute end-to-end technical auditing, verification, and automated activations of eSIM modules on telematics hardware.</li>
+                    <li>Maintain continuous monitoring of server IP connections and network communication ports to eliminate system downtime.</li>
                     <li>Designed and deployed custom internal web tools and spreadsheet scripts, increasing overall team task execution speed by 28%.</li>
                 </ul>
             </div>
 
-            <!-- Freelancer Waala -->
             <div class="timeline-item">
                 <div class="company-header">
                     <div class="company-name">Freelancer Waala</div>
@@ -714,7 +763,6 @@
                 </ul>
             </div>
 
-            <!-- Bistro -->
             <div class="timeline-item">
                 <div class="company-header">
                     <div class="company-name">Bistro</div>
@@ -727,7 +775,6 @@
                 </ul>
             </div>
 
-            <!-- Flipkart -->
             <div class="timeline-item">
                 <div class="company-header">
                     <div class="company-name">Flipkart India</div>
@@ -736,28 +783,94 @@
                 <div class="role-title">Planning Leader & WMS Data Entry Operator</div>
                 <ul class="exp-details">
                     <li>Supervised hub-level inventory management, dispatch scheduling, and stock reconciliation using WMS systems.</li>
-                    <li>Honored with the prestigious "Reward and Recognition" (RNR) Award twice in 2019 for operational accuracy.</li>
+                    <li>Honored with the prestigious "Reward and Recognition" (RNR) Award twice in 2019 for operational accuracy[cite: 1, 3].</li>
                 </ul>
             </div>
 
         </div>
     </section>
 
+    <!-- Achievements & Book Link -->
+    <section class="section" id="achievements">
+        <div class="section-title">
+            <h2>Achievements & Publications</h2>
+            <p style="color: var(--text-muted);">Notable recognitions and literary authorship</p>
+        </div>
+
+        <div class="achieve-grid">
+            
+            <div class="achieve-card">
+                <div class="achieve-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h3 style="color: var(--accent-blue);">2x RNR Award</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Received Reward & Recognition twice at Flipkart (2019) for zero-error inventory execution[cite: 1, 3].</p>
+            </div>
+
+            <a href="https://www.amazon.in/dp/B0D5BXXS8C" target="_blank" class="achieve-card book-card">
+                <div class="achieve-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                <h3 style="color: var(--accent-gold);">Published Book</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Author of the book <i>"Andekha Sangharsh"</i>[cite: 1, 3] (Pen Name: Mratyunjay Brahmavanshi).</p>
+                <div class="amazon-tag"><i class="fa-brands fa-amazon"></i> View on Amazon &rarr;</div>
+            </a>
+
+            <div class="achieve-card">
+                <div class="achieve-icon"><i class="fa-solid fa-medal"></i></div>
+                <h3 style="color: var(--accent-cyan);">District Athletics</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Represented in District Level Hockey Championship (2014)[cite: 1, 3].</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Personal Details Section -->
+    <section class="section">
+        <div class="personal-accordion">
+            <button class="btn-toggle-personal" onclick="togglePersonalDetails()">
+                <i class="fa-solid fa-id-card" style="margin-right: 8px;"></i> View Personal Details
+            </button>
+
+            <div class="personal-details-content" id="personalContent">
+                <div class="details-box">
+                    <div class="details-row">
+                        <span class="details-label">Father's Name:</span>
+                        <span class="details-val">Shiv Shankar[cite: 1, 3]</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Mother's Name:</span>
+                        <span class="details-val">Malti Devi[cite: 1, 3]</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Languages Known:</span>
+                        <span class="details-val">Hindi, English[cite: 1, 3]</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Current Location:</span>
+                        <span class="details-val">Bhondsi, Gurugram, Haryana[cite: 1, 3]</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Permanent Address:</span>
+                        <span class="details-val">2443, Patel Nagar, Orai, Jalaun (U.P.)[cite: 1, 3]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thank You Section -->
+    <section class="section">
+        <div class="thankyou-section">
+            <h2><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 8px;"></i> Thank You for Visiting!</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px;">I appreciate your time exploring my professional journey. Feel free to reach out for business inquiries or collaboration.</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">&copy; 2026 Vikash Kumar. All rights reserved.</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Vikash Kumar. All rights reserved.</p>
     </footer>
 
     <!-- Interactive Scripts -->
     <script>
-        // Custom Mouse Cursor Follower
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-        });
-
-        // Welcome Screen Overlay Function
+        // Welcome Screen Overlay
         function enterPortfolio() {
             const overlay = document.getElementById('welcome-overlay');
             overlay.style.opacity = '0';
@@ -771,39 +884,20 @@
             }
         }
 
-        // --- 3. 3D CUBE MOUSE INTERACTION SCRIPT ---
-        const cubeContainer = document.getElementById('cubeContainer');
-        const skillCube = document.getElementById('skillCube');
-
-        let targetRotateX = -15;
-        let targetRotateY = 25;
-        let currentRotateX = -15;
-        let currentRotateY = 25;
-
-        cubeContainer.addEventListener('mousemove', (e) => {
-            const rect = cubeContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            // Calculate rotation angles based on cursor offset
-            targetRotateY = (x / rect.width) * 180;
-            targetRotateX = -(y / rect.height) * 180;
-        });
-
-        cubeContainer.addEventListener('mouseleave', () => {
-            targetRotateX = -15;
-            targetRotateY = 25;
-        });
-
-        // Smooth Interpolation Loop for Cube Movement
-        function animateCube() {
-            currentRotateX += (targetRotateX - currentRotateX) * 0.08;
-            currentRotateY += (targetRotateY - currentRotateY) * 0.08;
-            
-            skillCube.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
-            requestAnimationFrame(animateCube);
+        // Modal Functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
         }
-        animateCube();
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Accordion Toggle Function
+        function togglePersonalDetails() {
+            const content = document.getElementById('personalContent');
+            content.classList.toggle('open');
+        }
 
         // Three.js 3D Background Geometry
         const canvas = document.getElementById('webgl-bg');
@@ -815,7 +909,7 @@
         renderer.setPixelRatio(window.devicePixelRatio);
 
         const geometry = new THREE.IcosahedronGeometry(2, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.18 });
+        const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.15 });
         const shape = new THREE.Mesh(geometry, material);
         scene.add(shape);
 
